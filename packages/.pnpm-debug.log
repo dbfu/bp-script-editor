@@ -1,0 +1,135 @@
+{
+  "0 debug pnpm:scope": {
+    "selected": 1,
+    "total": 3,
+    "workspacePrefix": "/Users/fudebao/Documents/projects/bp-script-editor"
+  },
+  "1 debug pnpm:package-manifest": {
+    "initial": {
+      "name": "example",
+      "private": true,
+      "version": "0.0.0",
+      "type": "module",
+      "scripts": {
+        "dev": "vite",
+        "build": "tsc && vite build",
+        "preview": "vite preview"
+      },
+      "dependencies": {
+        "@bp/bp-script-editor": "workspace:^undefined",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0"
+      },
+      "devDependencies": {
+        "@types/react": "^18.0.28",
+        "@types/react-dom": "^18.0.11",
+        "@vitejs/plugin-react": "^3.1.0",
+        "typescript": "^4.9.3",
+        "vite": "^4.2.0"
+      }
+    },
+    "prefix": "/Users/fudebao/Documents/projects/bp-script-editor/packages/example"
+  },
+  "2 debug pnpm:package-manifest": {
+    "initial": {
+      "name": "bp-script-editor",
+      "version": "1.0.0",
+      "description": "在线公式脚本编辑器",
+      "main": "index.js",
+      "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+      },
+      "keywords": [
+        "script",
+        "editor"
+      ],
+      "author": "876809592@qq.com",
+      "license": "ISC",
+      "dependencies": {
+        "rollup": "^3.19.1"
+      }
+    },
+    "prefix": "/Users/fudebao/Documents/projects/bp-script-editor"
+  },
+  "3 debug pnpm:context": {
+    "currentLockfileExists": true,
+    "storeDir": "/Users/fudebao/.pnpm-store/v3",
+    "virtualStoreDir": "/Users/fudebao/Documents/projects/bp-script-editor/node_modules/.pnpm"
+  },
+  "4 debug pnpm:stage": {
+    "prefix": "/Users/fudebao/Documents/projects/bp-script-editor",
+    "stage": "resolution_started"
+  },
+  "5 error pnpm": {
+    "pkgsStack": [],
+    "err": {
+      "name": "pnpm",
+      "message": "Invalid workspace: spec (workspace:^undefined)",
+      "stack": "pnpm: Invalid workspace: spec (workspace:^undefined)\n    at tryResolveFromWorkspace (/usr/local/lib/node_modules/pnpm/dist/pnpm.cjs:85935:15)\n    at resolveNpm (/usr/local/lib/node_modules/pnpm/dist/pnpm.cjs:85839:39)\n    at Object.resolve (/usr/local/lib/node_modules/pnpm/dist/pnpm.cjs:86071:40)\n    at ctx.requestsQueue.add.priority (/usr/local/lib/node_modules/pnpm/dist/pnpm.cjs:74444:75)\n    at run (/usr/local/lib/node_modules/pnpm/dist/pnpm.cjs:74160:90)\n    at PQueue._tryToStartAnother (/usr/local/lib/node_modules/pnpm/dist/pnpm.cjs:74114:13)\n    at /usr/local/lib/node_modules/pnpm/dist/pnpm.cjs:74173:16\n    at new Promise (<anonymous>)\n    at PQueue.add (/usr/local/lib/node_modules/pnpm/dist/pnpm.cjs:74155:16)\n    at resolveAndFetch (/usr/local/lib/node_modules/pnpm/dist/pnpm.cjs:74444:55)"
+    }
+  },
+  "6 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@types/react/18.0.28",
+    "wanted": {
+      "dependentId": "packages/example",
+      "name": "@types/react",
+      "rawSpec": "^18.0.28"
+    }
+  },
+  "7 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@types/react-dom/18.0.11",
+    "wanted": {
+      "dependentId": "packages/example",
+      "name": "@types/react-dom",
+      "rawSpec": "^18.0.11"
+    }
+  },
+  "8 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@vitejs/plugin-react/3.1.0",
+    "wanted": {
+      "dependentId": "packages/example",
+      "name": "@vitejs/plugin-react",
+      "rawSpec": "^3.1.0"
+    }
+  },
+  "9 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/typescript/4.9.5",
+    "wanted": {
+      "dependentId": "packages/example",
+      "name": "typescript",
+      "rawSpec": "^4.9.3"
+    }
+  },
+  "10 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/react/18.2.0",
+    "wanted": {
+      "dependentId": "packages/example",
+      "name": "react",
+      "rawSpec": "^18.2.0"
+    }
+  },
+  "11 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/vite/4.2.0",
+    "wanted": {
+      "dependentId": "packages/example",
+      "name": "vite",
+      "rawSpec": "^4.2.0"
+    }
+  },
+  "12 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/react-dom/18.2.0",
+    "wanted": {
+      "dependentId": "packages/example",
+      "name": "react-dom",
+      "rawSpec": "^18.2.0"
+    }
+  },
+  "13 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/rollup/3.19.1",
+    "wanted": {
+      "dependentId": ".",
+      "name": "rollup",
+      "rawSpec": "^3.19.1"
+    }
+  }
+}
