@@ -11,24 +11,15 @@ import ReactCodeMirror, { ReactCodeMirrorRef } from '@uiw/react-codemirror';
 import { snippet } from '@codemirror/autocomplete';
 
 import { extensions } from './extensions';
-import { CommonPlaceholderTheme } from './common-placeholder-theme';
+import { CommonPlaceholderThemesType, CompletionsType, FunctionType } from './interface';
 
 export interface EditorPropTypes {
-  tabs: any[];
-  completions: any;
+  completions: CompletionsType[];
   keywords?: string[];
   onValueChange?: (value: string) => void;
-  placeholderThemes: {
-    [k: string]: CommonPlaceholderTheme;
-  };
+  placeholderThemes: CommonPlaceholderThemesType;
   mode: string;
-  functions: {
-    name: string;
-    template: string;
-    detail?: string;
-    type: string;
-    handle?: any;
-  }[];
+  functions: FunctionType[];
 }
 
 export interface ScriptEditorRef {
@@ -41,7 +32,7 @@ const Editor: ForwardRefRenderFunction<ScriptEditorRef, EditorPropTypes> = (
 ) => {
   const editorRef = useRef<ReactCodeMirrorRef>(null);
 
-  const insertText = (text: string, isTemplate: boolean) => {
+  const insertText = (text: string, isTemplate?: boolean) => {
     const { view } = editorRef.current!;
     if (!view) return;
 

@@ -7,8 +7,9 @@ import {
   EditorView,
   WidgetType,
 } from '@codemirror/view';
+import { CommonPlaceholderThemesType } from '../interface';
 
-export const placeholdersPlugin = (themes: any, mode: string = 'name') => {
+export const placeholdersPlugin = (themes: CommonPlaceholderThemesType, mode: string = 'name') => {
 
   class PlaceholderWidget extends WidgetType {
     curFlag: string;

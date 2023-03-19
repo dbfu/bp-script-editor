@@ -1,12 +1,4 @@
-export interface CommonPlaceholderTheme {
-  textColor: string;
-  backgroudColor: string;
-  borderColor: string;
-}
-
-export interface CommonPlaceholderThemesType {
-  [k: string]: CommonPlaceholderTheme
-};
+import { CommonPlaceholderThemesType } from './interface';
 
 export const CommonPlaceholderThemes: CommonPlaceholderThemesType = {
   magenta: {

@@ -1,13 +1,13 @@
 import { autocompletion } from '@codemirror/autocomplete';
 import { javascriptLanguage } from '@codemirror/lang-javascript';
 import { EditorView } from '@codemirror/view';
+import { CommonPlaceholderThemesType, CompletionsType, FunctionType } from './interface';
 
 import { baseTheme } from './plugin/base-theme';
 import { customCompletions } from './plugin/custom-completions';
 import { functionPlugin } from './plugin/functions';
 import { keywordsPlugin } from './plugin/keywords';
 import { placeholdersPlugin } from './plugin/placeholders';
-
 
 export const extensions = ({
   completions,
@@ -17,10 +17,10 @@ export const extensions = ({
   functions,
 }: {
   keywords?: string[];
-  completions: any;
-  placeholderThemes: any;
+  completions: CompletionsType[];
+  placeholderThemes: CommonPlaceholderThemesType;
   mode: string;
-  functions: any;
+  functions: FunctionType[];
 }) => {
 
   return [

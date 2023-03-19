@@ -1,33 +1,47 @@
-import React from 'react';
+import React, { FC, useContext, useMemo } from 'react';
 import { Tree } from 'antd';
 
-import { useContext } from 'react';
 import { GlobalContext } from '../context';
-import { useMemo } from 'react';
+import { Model } from '../data/model';
 
-function ModelField({ placeholderTypes, models }) {
+interface PropsType {
+  models: Model[];
+  placeholderTypes: {
+    [k: string]: string;
+  }
+}
+
+
+const ModelField: FC<PropsType> = ({
+  placeholderTypes,
+  models,
+}) => {
   const { editorRef } = useContext(GlobalContext);
 
-  const formatTree = (list, parent) => {
-    list.forEach((item) => {
-      item.title = item.name;
-      item.key = item.code;
-      item.parent = parent;
-      formatTree(item.children || [], item);
+  const formatTree = (list: Model[], parent?: any): any[] => {
+    return list.map((item: Model) => {
+      const data: any = {
+        title: item.name,
+        key: item.code,
+        parent,
+      };
+      data.children = formatTree(item.children || [], data);
+      return data;
     });
   };
 
-  const treeData = useMemo(() => {
-    formatTree(models);
-    return models;
+  const treeData: any[] = useMemo(() => {
+    return formatTree(models);
   }, [models]);
 
   return (
     <Tree
       defaultExpandAll
-      onSelect={(_, info) => {
+      onSelect={(_, info: any) => {
         const text = `[[${placeholderTypes.Field}.${info.node.parent.title}:${info.node.parent.key}.${info.node.title}:${info.node.key}]] `;
-        editorRef.current?.insertText(text, false);
+        if (editorRef?.current?.insertText) {
+          editorRef?.current?.insertText(text, false);
+        }
       }}
       treeData={treeData}
     />

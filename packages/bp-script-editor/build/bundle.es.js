@@ -26256,12 +26256,16 @@ const functionPlugin = (functions) => {
             return this.text == other.text;
         }
         toDOM() {
-            let elt = document.createElement('span');
+            const elt = document.createElement('span');
             elt.style.cssText = `
       color: #d73a49;
       font-size: 14px;
       `;
             elt.textContent = this.text;
+            const span = document.createElement('span');
+            span.setAttribute('class', 'ͼ6g');
+            span.textContent = "(";
+            elt.appendChild(span);
             return elt;
         }
         ignoreEvent() {
@@ -26271,9 +26275,13 @@ const functionPlugin = (functions) => {
     const functionMatcher = new MatchDecorator({
         regexp: /func\.(.+?)\(/g,
         decoration: (match) => {
-            return Decoration.replace({
-                widget: new FunctionWidget(`${match[1]}(`),
-            });
+            const funcName = match[1];
+            if (functions.some(o => o.label === funcName)) {
+                return Decoration.replace({
+                    widget: new FunctionWidget(`${funcName}`),
+                });
+            }
+            return null;
         },
     });
     return ViewPlugin.fromClass(class {
@@ -26417,7 +26425,7 @@ const extensions = ({ completions, keywords, placeholderThemes, mode, functions,
             ]
         }),
         keywordsPlugin(keywords),
-        functionPlugin(),
+        functionPlugin(functions),
     ];
 };
 
