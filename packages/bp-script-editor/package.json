@@ -1,7 +1,10 @@
 {
   "name": "@bp/bp-script-editor",
   "version": "0.0.2",
-  "keywords": ["script", "editor"],
+  "keywords": [
+    "script",
+    "editor"
+  ],
   "author": {
     "name": "dbfu"
   },
@@ -40,5 +43,10 @@
     "@uiw/codemirror-theme-github": "^4.19.9",
     "@uiw/react-codemirror": "^4.19.9"
   },
-  "files": ["build"]
+  "files": [
+    "build"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }
