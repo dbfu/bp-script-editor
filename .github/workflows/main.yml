@@ -14,10 +14,10 @@ jobs:
       - name: Install  ️ 
         run: pnpm install
       - name: Build
-        run: npm run build
+        run: pnpm run build --filter @bp/example
     
       - name: Deploy 
         uses: JamesIves/github-pages-deploy-action@v4.3.3
         with:
           branch: gh-pages 
-          folder: dist 
+          folder: packages/example/dist
