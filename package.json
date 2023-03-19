@@ -4,7 +4,8 @@
   "description": "在线公式脚本编辑器",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "pnpm run build -r"
   },
   "keywords": [
     "script",
