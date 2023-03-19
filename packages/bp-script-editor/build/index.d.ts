@@ -1,5 +1,14 @@
 import React from 'react';
 
+interface CompletionsType {
+    template: string;
+    label: string;
+    detail: string;
+    type: string;
+}
+interface FunctionType extends CompletionsType {
+    handle: any;
+}
 interface CommonPlaceholderTheme {
     textColor: string;
     backgroudColor: string;
@@ -8,28 +17,20 @@ interface CommonPlaceholderTheme {
 interface CommonPlaceholderThemesType {
     [k: string]: CommonPlaceholderTheme;
 }
-declare const CommonPlaceholderThemes: CommonPlaceholderThemesType;
 
 interface EditorPropTypes {
-    tabs: any[];
-    completions: any;
+    completions: CompletionsType[];
     keywords?: string[];
     onValueChange?: (value: string) => void;
-    placeholderThemes: {
-        [k: string]: CommonPlaceholderTheme;
-    };
+    placeholderThemes: CommonPlaceholderThemesType;
     mode: string;
-    functions: {
-        name: string;
-        template: string;
-        detail?: string;
-        type: string;
-        handle?: any;
-    }[];
+    functions: FunctionType[];
 }
 interface ScriptEditorRef {
     insertText?: (text: string, isTemplate: boolean) => void;
 }
 declare const _default: React.ForwardRefExoticComponent<EditorPropTypes & React.RefAttributes<ScriptEditorRef>>;
 
-export { CommonPlaceholderThemes, ScriptEditorRef, _default as default };
+declare const CommonPlaceholderThemes: CommonPlaceholderThemesType;
+
+export { CommonPlaceholderTheme, CommonPlaceholderThemes, CommonPlaceholderThemesType, CompletionsType, FunctionType, ScriptEditorRef, _default as default };

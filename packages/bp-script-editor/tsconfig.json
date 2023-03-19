@@ -8,6 +8,6 @@
     "moduleResolution": "node",
     "target": "es6"
   },
-  "include": ["./**/*.ts", "./**/*.tsx", "./**/*.js"],
+  "include": ["./src/*.ts", "./src/*.tsx", "./src/*.js"],
   "exclude": ["node_modules"]
 }

@@ -1,6 +1,7 @@
 import { snippetCompletion } from '@codemirror/autocomplete';
+import { CompletionsType } from '../interface';
 
-export function customCompletions(completions: any) {
+export function customCompletions(completions: CompletionsType[]) {
   return (context: any) => {
     let word = context.matchBefore(/\w*/);
     if (word.from == word.to && !context.explicit) return null;
