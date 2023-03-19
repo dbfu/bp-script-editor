@@ -35,5 +35,6 @@
     "@codemirror/view": "^6.9.2",
     "@uiw/codemirror-theme-github": "^4.19.9",
     "@uiw/react-codemirror": "^4.19.9"
-  }
+  },
+  "files": ["build"]
 }
