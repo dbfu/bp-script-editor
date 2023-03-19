@@ -1,21 +1,28 @@
-import React, { useContext } from 'react';
+import React, { useContext, FC } from 'react';
 import { Tooltip } from 'antd';
 import { GlobalContext } from '../context';
+import { FunctionType } from '@bp/bp-script-editor';
 
-function Function({ functions }) {
+interface PropsTypes {
+  functions: FunctionType[];
+}
+
+const Function: FC<PropsTypes> = ({ functions }) => {
   const { editorRef } = useContext(GlobalContext);
 
   return (
     <div>
       {functions.map((item) => (
-        <Tooltip placement="right" key={item.name} title={item.detail}>
+        <Tooltip placement="right" key={item.label} title={item.detail}>
           <div
             onClick={() => {
-              editorRef.current.insertText(`${item.template}`, true);
+              if (editorRef?.current?.insertText) {
+                editorRef.current.insertText(`${item.template}`, true);
+              }
             }}
             className="px-[12px] py-[4px] hover:(bg-[rgba(0,0,0,0.04)]) cursor-pointer rounded-md"
           >
-            {item.name}
+            {item.label}
           </div>
         </Tooltip>
       ))}

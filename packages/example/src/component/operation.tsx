@@ -1,21 +1,28 @@
-import React, { useContext } from 'react';
+import React, { FC, useContext } from 'react';
 import { Tooltip } from 'antd';
 import { GlobalContext } from '../context';
+import { CompletionsType } from '@bp/bp-script-editor';
 
-function Operation({ operations }) {
+interface PropsType {
+  operations: CompletionsType[];
+}
+
+const Operation: FC<PropsType> = ({ operations }) => {
   const { editorRef } = useContext(GlobalContext);
 
   return (
     <div>
       {operations.map((item) => (
-        <Tooltip placement="right" key={item.name} title={item.detail}>
+        <Tooltip placement="right" key={item.label} title={item.detail}>
           <div
             onClick={() => {
-              editorRef.current.insertText(item.template);
+              if (editorRef?.current?.insertText) {
+                editorRef.current.insertText(item.template, false);
+              }
             }}
             className="px-[12px] py-[4px] hover:(bg-[rgba(0,0,0,0.04)]) cursor-pointer rounded-md"
           >
-            {item.name}
+            {item.label}
           </div>
         </Tooltip>
       ))}
