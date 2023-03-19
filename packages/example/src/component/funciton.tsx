@@ -1,7 +1,7 @@
 import React, { useContext, FC } from 'react';
 import { Tooltip } from 'antd';
 import { GlobalContext } from '../context';
-import { FunctionType } from '@bp/bp-script-editor';
+import { FunctionType } from '@byteplan/bp-script-editor';
 
 interface PropsTypes {
   functions: FunctionType[];

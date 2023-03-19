@@ -1,7 +1,7 @@
 import React, { FC, useContext } from 'react';
 import { Tooltip } from 'antd';
 import { GlobalContext } from '../context';
-import { CompletionsType } from '@bp/bp-script-editor';
+import { CompletionsType } from '@byteplan/bp-script-editor';
 
 interface PropsType {
   operations: CompletionsType[];

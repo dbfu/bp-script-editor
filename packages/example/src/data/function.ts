@@ -1,4 +1,4 @@
-import { FunctionType } from '@bp/bp-script-editor';
+import { FunctionType } from '@byteplan/bp-script-editor';
 
 
 export const functions: FunctionType[] = [

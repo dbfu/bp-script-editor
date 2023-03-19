@@ -1,4 +1,4 @@
-import { CompletionsType } from '@bp/bp-script-editor';
+import { CompletionsType } from '@byteplan/bp-script-editor';
 
 export const operations: CompletionsType[] = [
   {
