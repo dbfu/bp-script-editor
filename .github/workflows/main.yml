@@ -12,7 +12,7 @@ jobs:
         with:
           version: 7.2.1
       - name: Install  ️ 
-        run: pnpm install
+        run: pnpm install --no-frozen-lockfile
       - name: Build
         run: npm run build:example
     
@@ -21,3 +21,5 @@ jobs:
         with:
           branch: gh-pages 
           folder: packages/example/dist
+
+          
