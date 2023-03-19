@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@bp/bp-script-editor": "workspace:*",
+    "@dbfu/bp-script-editor": "workspace:*",
     "antd": "^5.3.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
