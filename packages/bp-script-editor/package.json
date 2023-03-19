@@ -1,6 +1,10 @@
 {
   "name": "@bp/bp-script-editor",
   "version": "0.0.2",
+  "keywords": ["script", "editor"],
+  "author": {
+    "name": "dbfu"
+  },
   "scripts": {
     "build": "rollup -c ./prod.rollup.config.js",
     "dev": "rollup -c ./dev.rollup.config.js -w"
