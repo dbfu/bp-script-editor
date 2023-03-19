@@ -31,7 +31,7 @@ export const functionPlugin = (functions: FunctionType[]) => {
       elt.textContent = this.text;
 
       const span = document.createElement('span');
-      span.setAttribute('class', 'ͼ6g');
+      span.style.cssText = 'color: #6a737d;';
       span.textContent = "(";
       elt.appendChild(span);
       return elt;

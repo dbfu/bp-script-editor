@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useMemo, useRef } from 'react';
 import { Button, Tabs, Space } from 'antd';
 
-import ScriptEditor, { CommonPlaceholderThemes, ScriptEditorRef } from '@bp/bp-script-editor'
+import Editor, { CommonPlaceholderThemes, ScriptEditorRef } from '@byteplan/bp-script-editor'
 
 import Function from './component/funciton';
 import ModelField from './component/model-field';
@@ -99,45 +99,39 @@ function App() {
   return (
     <GlobalContext.Provider value={{ editorRef }}>
       <div>
-        <Space>
-          <Button onClick={test} type="primary">
-            测试
-          </Button>
-          <Button
-            onClick={() => {
-              setMode((prev) => ['name', 'code'].filter((o) => o !== prev)[0]);
-            }}
-            type="primary"
-          >
-            {mode === 'name' ? '代码模式' : '名称模式'}
-          </Button>
-        </Space>
+        <div className="h-[48px] flex items-center bg-[rgb(68,75,81)] justify-end px-[20px]">
+          <Space>
+            <Button onClick={test} type="primary">
+              定义模型
+            </Button>
+            <Button onClick={test} type="primary">
+              测试
+            </Button>
+            <Button
+              onClick={() => {
+                setMode((prev) => ['name', 'code'].filter((o) => o !== prev)[0]);
+              }}
+              type="primary"
+            >
+              {mode === 'name' ? '代码模式' : '名称模式'}
+            </Button>
+          </Space>
+        </div>
 
         <div className="flex">
           <div className="w-[360px] flex-0 p-[12px] border-solid border-[#ccc] border-[1px]">
-            <Tabs items={tabs} tabPosition="left">
-              <Tabs.TabPane tab="参数" key="5" tabKey="5">
-                <Tabs>
-                  <Tabs.TabPane key="2" tab="上下文参数">
-                    上下文参数
-                  </Tabs.TabPane>
-                  <Tabs.TabPane key="1" tab="系统参数">
-                    系统参数
-                  </Tabs.TabPane>
-                </Tabs>
-              </Tabs.TabPane>
-              <Tabs.TabPane tab="变量" key="4" tabKey="4"></Tabs.TabPane>
-            </Tabs>
+            <Tabs items={tabs} tabPosition="left" />
           </div>
           <div className="flex-1 w-0">
-            <ScriptEditor
+            <Editor
               completions={completions}
               onValueChange={onValueChange}
               keywords={keywords}
               placeholderThemes={placeholderThemes}
-              mode={mode}
               functions={functions}
               ref={editorRef}
+              height="calc(100vh - 48px)"
+              mode={mode}
             />
           </div>
         </div>

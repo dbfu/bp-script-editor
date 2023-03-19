@@ -21,8 +21,7 @@ export const extensions = ({
   placeholderThemes: CommonPlaceholderThemesType;
   mode: string;
   functions: FunctionType[];
-}) => {
-
+}): any[] => {
   return [
     baseTheme,
     placeholdersPlugin(placeholderThemes, mode),

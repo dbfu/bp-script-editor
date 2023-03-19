@@ -19,3 +19,7 @@ export interface CommonPlaceholderThemesType {
   [k: string]: CommonPlaceholderTheme;
 }
 
+export interface ScriptEditorRef {
+  insertText?: (text: string, isTemplate: boolean) => void;
+}
+

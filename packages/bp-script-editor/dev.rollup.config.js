@@ -3,20 +3,24 @@ import typescript from 'rollup-plugin-typescript2';
 import commonjs from '@rollup/plugin-commonjs';
 import dts from 'rollup-plugin-dts';
 import { defineConfig } from 'rollup'
+import clear from 'rollup-plugin-clear';
 
 export default defineConfig([{
   input: './src/index.ts',
   output:
     [
       {
-        format:"es",
-        file:"./build/bundle.es.js" 
-    },
+        format: "es",
+        file: "./build/bundle.es.js"
+      },
     ],
   plugins: [
     resolve(),
     commonjs(),
     typescript(),
+    clear({
+      targets: ['build']
+    }),
   ],
   external: ['react', 'react-dom']
 }, {

@@ -4,6 +4,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import { terser } from 'rollup-plugin-terser'
 import dts from 'rollup-plugin-dts';
 import { defineConfig } from 'rollup'
+import clear from 'rollup-plugin-clear';
 
 export default defineConfig([{
   input: './src/index.ts',
@@ -32,6 +33,9 @@ export default defineConfig([{
     resolve(),
     commonjs(),
     typescript(),
+    clear({
+      targets: ['build']
+    }),
   ],
   external: ['react', 'react-dom']
 },

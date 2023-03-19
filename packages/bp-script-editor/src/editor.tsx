@@ -11,23 +11,29 @@ import ReactCodeMirror, { ReactCodeMirrorRef } from '@uiw/react-codemirror';
 import { snippet } from '@codemirror/autocomplete';
 
 import { extensions } from './extensions';
-import { CommonPlaceholderThemesType, CompletionsType, FunctionType } from './interface';
+import { CommonPlaceholderThemesType, CompletionsType, FunctionType, ScriptEditorRef } from './interface';
 
-export interface EditorPropTypes {
+interface PropsType {
   completions: CompletionsType[];
   keywords?: string[];
   onValueChange?: (value: string) => void;
   placeholderThemes: CommonPlaceholderThemesType;
   mode: string;
   functions: FunctionType[];
+  height?: string;
+  width?: string;
 }
 
-export interface ScriptEditorRef {
-  insertText?: (text: string, isTemplate: boolean) => void;
-}
-
-const Editor: ForwardRefRenderFunction<ScriptEditorRef, EditorPropTypes> = (
-  { completions, onValueChange, keywords, placeholderThemes, mode, functions },
+const Editor: ForwardRefRenderFunction<ScriptEditorRef, PropsType> = ({
+  completions,
+  onValueChange,
+  keywords,
+  placeholderThemes,
+  mode,
+  functions,
+  height,
+  width,
+},
   ref,
 ) => {
   const editorRef = useRef<ReactCodeMirrorRef>(null);
@@ -100,8 +106,8 @@ const Editor: ForwardRefRenderFunction<ScriptEditorRef, EditorPropTypes> = (
 
   return (
     <ReactCodeMirror
-      height="100vh"
-      width="100%"
+      height={height}
+      width={width}
       extensions={extensionsMemo}
       theme={githubLight}
       onChange={onChangeHandle}
@@ -110,4 +116,5 @@ const Editor: ForwardRefRenderFunction<ScriptEditorRef, EditorPropTypes> = (
   );
 }
 
-export default forwardRef<ScriptEditorRef, EditorPropTypes>(Editor);
+
+export default forwardRef<ScriptEditorRef, PropsType>(Editor);

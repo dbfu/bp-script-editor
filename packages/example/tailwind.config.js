@@ -15,4 +15,8 @@ export default defineConfig({
     },
   },
   plugins: [formsPlugin],
+  extract: {
+    include: ['**/*.{jsx,js,ts,tsx,css,html}'],
+    exclude: ['node_modules', '.git', '.next'],
+  },
 });
