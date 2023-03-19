@@ -12,7 +12,7 @@ jobs:
 
       - name: Install and Build   
         run: |
-          npm install
+          pnpm install
           npm run build
 
       - name: Deploy 
