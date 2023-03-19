@@ -7,14 +7,15 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout  ️ 
-        uses: actions/checkout@v3
-
-      - name: Install and Build   
-        run: |
-          pnpm install
-          npm run build
-
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2.1.0
+        with:
+          version: 7.2.1
+      - name: Install  ️ 
+        run: pnpm install
+      - name: Build
+        run: npm run build
+    
       - name: Deploy 
         uses: JamesIves/github-pages-deploy-action@v4.3.3
         with:
