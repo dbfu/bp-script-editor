@@ -4,8 +4,7 @@
   "description": "在线公式脚本编辑器",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "cd ./packages/bp-script-editor && npm run build"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "script",
