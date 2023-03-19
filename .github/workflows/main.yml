@@ -14,7 +14,7 @@ jobs:
       - name: Install  ️ 
         run: pnpm install
       - name: Build
-        run: pnpm run build --filter @bp/example
+        run: npm run build
     
       - name: Deploy 
         uses: JamesIves/github-pages-deploy-action@v4.3.3
