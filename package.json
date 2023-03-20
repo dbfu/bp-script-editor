@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:example": "pnpm --filter '@byteplan/example' run build"
+    "build": "pnpm --filter '@byteplan/bp-script-editor' run build",
+    "build:example": "pnpm --filter '@byteplan/example' run build",
+    "dev": "pnpm --filter '@byteplan/example' run dev"
   },
   "keywords": [
     "script",

@@ -15,12 +15,16 @@ export const extensions = ({
   placeholderThemes,
   mode,
   functions,
+  keywordsColor,
+  keywordsClassName,
 }: {
   keywords?: string[];
   completions: CompletionsType[];
   placeholderThemes: CommonPlaceholderThemesType;
   mode: string;
   functions: FunctionType[];
+  keywordsColor?: string;
+  keywordsClassName?: string;
 }): any[] => {
   return [
     baseTheme,
@@ -32,8 +36,8 @@ export const extensions = ({
         customCompletions(completions)
       ]
     }),
-    keywordsPlugin(keywords),
+    keywords.length ? keywordsPlugin(keywords, keywordsColor, keywordsClassName) : null,
     functionPlugin(functions),
-  ];
+  ].filter(o => !!o);
 }
 

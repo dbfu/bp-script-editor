@@ -30,6 +30,8 @@ interface PropsType {
     functions: FunctionType[];
     height?: string;
     width?: string;
+    keywordsClassName?: string;
+    keywordsColor?: string;
 }
 declare const _default: React.ForwardRefExoticComponent<PropsType & React.RefAttributes<ScriptEditorRef>>;
 

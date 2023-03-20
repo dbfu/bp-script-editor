@@ -1,0 +1,4 @@
+.model-list .selected {
+  background-color: rgba(36, 116, 255, 0.1);
+  color: rgb(36, 116, 255);
+}

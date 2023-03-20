@@ -31,8 +31,9 @@ export const keywordsPlugin = (
     toDOM() {
       let elt = document.createElement('span');
       const styles: string[] = [];
+      console.log(keywordsColor)
       if (keywordsColor) {
-        styles.push(`color: ${keywordsColor}`);
+        styles.push(`color: ${keywordsColor};`);
       }
       elt.style.cssText = styles.join('\n');
       if (keywordsClassName) {

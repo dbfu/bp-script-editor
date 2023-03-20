@@ -22,8 +22,9 @@ const ModelField: FC<PropsType> = ({
     return list.map((item: Model) => {
       const data: any = {
         title: item.name,
-        key: item.code,
+        key: `${parent?.key || ''}${item.code}`,
         parent,
+        code: item.code,
       };
       data.children = formatTree(item.children || [], data);
       return data;
@@ -38,7 +39,7 @@ const ModelField: FC<PropsType> = ({
     <Tree
       defaultExpandAll
       onSelect={(_, info: any) => {
-        const text = `[[${placeholderTypes.Field}.${info.node.parent.title}:${info.node.parent.key}.${info.node.title}:${info.node.key}]] `;
+        const text = `[[${placeholderTypes.Field}.${info.node.parent.title}:${info.node.parent.code}.${info.node.title}:${info.node.code}]] `;
         if (editorRef?.current?.insertText) {
           editorRef?.current?.insertText(text, false);
         }

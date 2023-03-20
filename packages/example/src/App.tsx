@@ -1,16 +1,21 @@
 import React, { useState, useCallback, useMemo, useRef } from 'react';
 import { Button, Tabs, Space } from 'antd';
+import { useLocalStorageState } from 'ahooks'
 
-import Editor, { CommonPlaceholderThemes, ScriptEditorRef } from '@byteplan/bp-script-editor'
+import Editor, { CommonPlaceholderThemes, FunctionType, ScriptEditorRef } from '@byteplan/bp-script-editor'
 
-import Function from './component/funciton';
+import Function from './component/function';
 import ModelField from './component/model-field';
 import Operation from './component/operation';
 
 import { GlobalContext } from './context';
-import { models } from './data/model';
+import { Model, models } from './data/model';
 import { functions } from './data/function';
 import { operations } from './data/operation';
+import ModelList from './pages/model-list';
+import Keywords, { KeywordsConfigType } from './pages/keywords';
+import Functions from './pages/functions';
+import RunResult from './pages/result';
 
 const placeholderTypes = {
   Field: 'f',
@@ -21,19 +26,43 @@ const placeholderThemes = {
 };
 
 function App() {
+
+  const [localModels, setLocalModels] = useLocalStorageState<Model[]>(
+    'model-list',
+    { defaultValue: models }
+  );
+
+  const [keywordsConfig, setKeywordsConfig] = useLocalStorageState<KeywordsConfigType>(
+    'keywords-config',
+    {
+      defaultValue: {
+        color: 'red',
+        keywords: [],
+      }
+    }
+  );
+
+  const [localFunctions, setLocalFunctions] = useLocalStorageState<FunctionType[]>(
+    'functions',
+    {
+      defaultValue: functions,
+    }
+  );
+
+
   const tabs = useMemo(
     () => [
       {
         key: 'model-field',
         label: '字段',
         children: (
-          <ModelField placeholderTypes={placeholderTypes} models={models} />
+          <ModelField placeholderTypes={placeholderTypes} models={localModels} />
         ),
       },
       {
         key: 'function',
         label: '函数',
-        children: <Function functions={functions} />,
+        children: <Function functions={localFunctions} />,
       },
       {
         key: 'operation',
@@ -41,17 +70,18 @@ function App() {
         children: <Operation operations={operations} />,
       },
     ],
-    [functions, operations, placeholderTypes]
+    [localFunctions, operations, placeholderTypes, localModels]
   );
 
-  const data = {
-    user: {
-      id: 1,
-      name: '付德宝',
-      age: '18',
-      sex: 1,
-    },
-  };
+  const data = useMemo(() => {
+    return localModels.reduce((prevModel: any, model: Model) => {
+      prevModel[model.code] = model.children?.reduce((prevField: any, field: Model) => {
+        prevField[field.code] = field.value;
+        return prevField;
+      }, {})
+      return prevModel;
+    }, {});
+  }, [])
 
   const onValueChange = useCallback((value: string) => {
     setValue(value);
@@ -59,8 +89,15 @@ function App() {
 
   const [value, setValue] = useState<string>('');
   const [mode, setMode] = useState('name');
+  const [modelListOpen, setModelListOpen] = useState(false);
+  const [keywordsOpen, setKeywordsOpen] = useState(false);
+  const [functionsOpen, setFunctionsOpen] = useState(false);
+  const [runResultOpen, setRunResultOpen] = useState(false);
+  const [formatFunctions, setFormatFunctions] = useState('');
+  const [runResult, setRunResult] = useState('');
 
   const test = () => {
+
     const result = value.replace(/\[\[(.+?)\]\]/g, (_: string, $2: string) => {
       const [type, ...rest] = $2.split('.');
 
@@ -76,23 +113,30 @@ function App() {
 
     const func = new window.Function('func', 'data', `return ${result}`);
 
-    const res = func(
-      functions.reduce((prev: { [k in string]: any }, cur) => {
-        prev[cur.label] = cur.handle;
-        return prev;
-      }, {}),
+    const funcs = localFunctions.reduce((prev: { [k in string]: any }, cur) => {
+
+      if (cur.handle) {
+        const handle = new window.Function(`return ${cur.handle}`);
+        prev[cur.label] = handle();
+      }
+
+      return prev;
+    }, {});
+
+    const runRes = func(
+      funcs,
       data
     );
 
-    console.log(`输出: ${res}`);
+    setFormatFunctions(`return ${result}`);
+    setRunResult(runRes);
+    setRunResultOpen(true);
   };
 
   const completions = useMemo(
-    () => [...functions, ...operations],
-    [functions, operations]
+    () => [...localFunctions, ...operations],
+    [localFunctions, operations]
   );
-
-  const keywords = useMemo(() => ['222'], []);
 
   const editorRef = useRef<ScriptEditorRef>(null);
 
@@ -101,8 +145,14 @@ function App() {
       <div>
         <div className="h-[48px] flex items-center bg-[rgb(68,75,81)] justify-end px-[20px]">
           <Space>
-            <Button onClick={test} type="primary">
+            <Button onClick={() => { setModelListOpen(true) }} type="primary">
               定义模型
+            </Button>
+            <Button onClick={() => { setFunctionsOpen(true) }} type="primary">
+              定义函数
+            </Button>
+            <Button onClick={() => { setKeywordsOpen(true) }} type="primary">
+              定义关键字
             </Button>
             <Button onClick={test} type="primary">
               测试
@@ -126,15 +176,45 @@ function App() {
             <Editor
               completions={completions}
               onValueChange={onValueChange}
-              keywords={keywords}
+              keywords={keywordsConfig.keywords}
               placeholderThemes={placeholderThemes}
-              functions={functions}
+              functions={localFunctions}
               ref={editorRef}
               height="calc(100vh - 48px)"
               mode={mode}
+              keywordsColor={keywordsConfig.color}
             />
           </div>
         </div>
+        <ModelList
+          onModelsChange={setLocalModels}
+          open={modelListOpen}
+          onClose={() => { setModelListOpen(false) }}
+          models={localModels}
+        />
+        <Keywords
+          onClose={() => {
+            setKeywordsOpen(false
+            )
+          }}
+          onChange={setKeywordsConfig}
+          open={keywordsOpen}
+          keywordsConfig={keywordsConfig}
+        />
+        <Functions
+          open={functionsOpen}
+          functions={localFunctions}
+          onChange={setLocalFunctions}
+          onClose={() => { setFunctionsOpen(false) }}
+        />
+        <RunResult
+          formatFunctions={formatFunctions}
+          result={runResult}
+          open={runResultOpen}
+          onClose={() => {
+            setRunResultOpen(false);
+          }}
+        />
       </div>
     </GlobalContext.Provider>
   );

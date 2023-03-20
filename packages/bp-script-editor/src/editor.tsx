@@ -22,6 +22,8 @@ interface PropsType {
   functions: FunctionType[];
   height?: string;
   width?: string;
+  keywordsClassName?: string;
+  keywordsColor?: string;
 }
 
 const Editor: ForwardRefRenderFunction<ScriptEditorRef, PropsType> = ({
@@ -33,6 +35,8 @@ const Editor: ForwardRefRenderFunction<ScriptEditorRef, PropsType> = ({
   functions,
   height,
   width,
+  keywordsColor,
+  keywordsClassName,
 },
   ref,
 ) => {
@@ -93,8 +97,18 @@ const Editor: ForwardRefRenderFunction<ScriptEditorRef, PropsType> = ({
         placeholderThemes,
         mode,
         functions,
+        keywordsColor,
+        keywordsClassName,
       }),
-    [completions, keywords, placeholderThemes, mode, functions]
+    [
+      completions,
+      keywords,
+      placeholderThemes,
+      mode,
+      functions,
+      keywordsColor,
+      keywordsClassName,
+    ]
   );
 
   const onChangeHandle = useCallback(
