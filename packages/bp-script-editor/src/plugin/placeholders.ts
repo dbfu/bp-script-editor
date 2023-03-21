@@ -43,6 +43,7 @@ export const placeholdersPlugin = (themes: CommonPlaceholderThemesType, mode: st
       color: ${textColor};
       font-size: 12px;
       padding: 2px 7px;
+      user-select: none;
       `;
       elt.textContent = this.text;
       return elt;
