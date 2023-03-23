@@ -159,6 +159,16 @@ function App() {
             </Button>
             <Button
               onClick={() => {
+                if (editorRef.current?.clearText) {
+                  editorRef.current.clearText();
+                }
+              }}
+              type="primary"
+            >
+              清空
+            </Button>
+            <Button
+              onClick={() => {
                 setMode((prev) => ['name', 'code'].filter((o) => o !== prev)[0]);
               }}
               type="primary"
@@ -183,6 +193,7 @@ function App() {
               height="calc(100vh - 48px)"
               mode={mode}
               keywordsColor={keywordsConfig.color}
+              defaultValue="333333"
             />
           </div>
         </div>

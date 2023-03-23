@@ -21,5 +21,7 @@ export interface CommonPlaceholderThemesType {
 
 export interface ScriptEditorRef {
   insertText?: (text: string, isTemplate: boolean) => void;
+  clearText?: () => void;
+  setText?: (text: string) => void;
 }
 

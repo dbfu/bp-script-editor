@@ -19,6 +19,8 @@ interface CommonPlaceholderThemesType {
 }
 interface ScriptEditorRef {
     insertText?: (text: string, isTemplate: boolean) => void;
+    clearText?: () => void;
+    setText?: (text: string) => void;
 }
 
 interface PropsType {
@@ -32,6 +34,7 @@ interface PropsType {
     width?: string;
     keywordsClassName?: string;
     keywordsColor?: string;
+    defaultValue?: string;
 }
 declare const _default: React.ForwardRefExoticComponent<PropsType & React.RefAttributes<ScriptEditorRef>>;
 

@@ -33,7 +33,15 @@ export const extensions = ({
     javascriptLanguage,
     autocompletion({
       override: [
-        customCompletions(completions)
+        customCompletions(completions),
+        (context: any) => {
+          const word = context.matchBefore(/\w*/);
+          if (word.from == word.to && !context.explicit) return null;
+          return {
+            from: word.from,
+            options: [],
+          };
+        }
       ]
     }),
     keywords.length ? keywordsPlugin(keywords, keywordsColor, keywordsClassName) : null,

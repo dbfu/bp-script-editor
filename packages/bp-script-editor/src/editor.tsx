@@ -24,6 +24,7 @@ interface PropsType {
   width?: string;
   keywordsClassName?: string;
   keywordsColor?: string;
+  defaultValue?: string;
 }
 
 const Editor: ForwardRefRenderFunction<ScriptEditorRef, PropsType> = ({
@@ -37,12 +38,13 @@ const Editor: ForwardRefRenderFunction<ScriptEditorRef, PropsType> = ({
   width,
   keywordsColor,
   keywordsClassName,
+  defaultValue,
 },
   ref,
 ) => {
   const editorRef = useRef<ReactCodeMirrorRef>(null);
 
-  const insertText = (text: string, isTemplate?: boolean) => {
+  const insertText = useCallback((text: string, isTemplate?: boolean) => {
     const { view } = editorRef.current!;
     if (!view) return;
 
@@ -78,16 +80,49 @@ const Editor: ForwardRefRenderFunction<ScriptEditorRef, PropsType> = ({
         },
       });
     }
-  };
+  }, []);
+
+  const clearText = useCallback(() => {
+    const { view } = editorRef.current;
+    view.dispatch({
+      changes: {
+        from: 0,
+        to: view.state.doc.length,
+        insert: '',
+      },
+      selection: {
+        anchor: 0,
+      },
+    });
+    view.focus();
+  }, []);
+
+  const setText = useCallback((text: string) => {
+    const { view } = editorRef.current;
+    view.dispatch({
+      changes: {
+        from: 0,
+        to: view.state.doc.length,
+        insert: text,
+      },
+      selection: {
+        anchor: text.length,
+      },
+    });
+    view.focus();
+  }, []);
 
   useImperativeHandle(
     ref,
     () => {
       return {
         insertText,
+        clearText,
+        setText,
+        originEditorRef: editorRef,
       };
     },
-    []
+    [insertText, clearText, setText]
   );
   const extensionsMemo = useMemo(
     () =>
@@ -125,6 +160,7 @@ const Editor: ForwardRefRenderFunction<ScriptEditorRef, PropsType> = ({
       extensions={extensionsMemo}
       theme={githubLight}
       onChange={onChangeHandle}
+      value={defaultValue}
       ref={editorRef}
     />
   );
