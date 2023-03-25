@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@byteplan/bp-script-editor": "workspace:*",
+    "@codemirror/lang-javascript": "^6.1.4",
+    "@codemirror/state": "^6.2.0",
     "@types/react-color": "^3.0.6",
     "ahooks": "^3.7.5",
     "antd": "^5.3.1",

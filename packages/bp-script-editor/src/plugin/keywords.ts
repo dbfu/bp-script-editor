@@ -1,11 +1,10 @@
-import { DecorationSet } from '@codemirror/view';
-import { ViewUpdate } from '@codemirror/view';
-import { EditorView } from '@codemirror/view';
-import { WidgetType } from '@codemirror/view';
 import {
   Decoration,
   ViewPlugin,
   MatchDecorator,
+  EditorView,
+  ViewUpdate,
+  DecorationSet,
 } from '@codemirror/view';
 
 export const keywordsPlugin = (
@@ -14,44 +13,35 @@ export const keywordsPlugin = (
   keywordsClassName?: string,
 ) => {
 
-  const regexp = new RegExp(keywords.map(w => `${w}`).join('|'), 'g');
-
-  class KeywordsWidget extends WidgetType {
-    text: string;
-
-    constructor(text: string) {
-      super();
-      this.text = text;
-    }
-
-    eq(other: KeywordsWidget) {
-      return this.text == other.text;
-    }
-
-    toDOM() {
-      let elt = document.createElement('span');
-      const styles: string[] = [];
-      console.log(keywordsColor)
-      if (keywordsColor) {
-        styles.push(`color: ${keywordsColor};`);
-      }
-      elt.style.cssText = styles.join('\n');
-      if (keywordsClassName) {
-        elt.setAttribute('class', keywordsClassName);
-      }
-      elt.textContent = this.text;
-      return elt;
-    }
-    ignoreEvent() {
-      return true;
-    }
-  }
+  const regexp = new RegExp(keywords.join('|'), 'g');
 
   const keywordsMatcher = new MatchDecorator({
     regexp,
-    decoration: (match) => {
-      return Decoration.replace({
-        widget: new KeywordsWidget(match[0]),
+    decoration: (match, view, pos) => {
+      const lineText = view.state.doc.lineAt(pos).text;
+      const [matchText] = match;
+
+      // 如果当前匹配字段后面一位有值且不是空格的时候，这种情况不能算匹配到，不做处理
+      if (lineText?.[pos + matchText.length] && lineText?.[pos + matchText.length] !== ' ') {
+        return Decoration.mark({});
+      }
+
+      // 如果当前匹配字段前面一位有值且不是空格的时候，这种情况不能算匹配到，不做处理
+      if (lineText?.[pos - 1] && lineText?.[pos - 1] !== ' ') {
+        return Decoration.mark({});
+      }
+
+      let style: string;
+
+      if (keywordsColor) {
+        style = `color: ${keywordsColor};`;
+      }
+
+      return Decoration.mark({
+        attributes: {
+          style,
+        },
+        class: keywordsClassName,
       });
     },
   });
@@ -76,4 +66,5 @@ export const keywordsPlugin = (
     }
   );
 }
+
 

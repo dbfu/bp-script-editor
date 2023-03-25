@@ -3,9 +3,10 @@ export { CommonPlaceholderThemes } from './common-placeholder-theme'
 export {
   FunctionType,
   CommonPlaceholderTheme,
-  CommonPlaceholderThemesType,
   CompletionsType,
   ScriptEditorRef,
+  PlaceholderThemesType,
+  HintPathType,
 } from './interface'
 
 

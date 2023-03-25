@@ -9,15 +9,16 @@ import React, {
 import { githubLight } from '@uiw/codemirror-theme-github';
 import ReactCodeMirror, { ReactCodeMirrorRef } from '@uiw/react-codemirror';
 import { snippet } from '@codemirror/autocomplete';
+import { Extension } from '@codemirror/state';
 
 import { extensions } from './extensions';
-import { CommonPlaceholderThemesType, CompletionsType, FunctionType, ScriptEditorRef } from './interface';
+import { CompletionsType, FunctionType, HintPathType, PlaceholderThemesType, ScriptEditorRef } from './interface';
 
 interface PropsType {
   completions: CompletionsType[];
   keywords?: string[];
   onValueChange?: (value: string) => void;
-  placeholderThemes: CommonPlaceholderThemesType;
+  placeholderThemes: PlaceholderThemesType;
   mode: string;
   functions: FunctionType[];
   height?: string;
@@ -25,6 +26,8 @@ interface PropsType {
   keywordsClassName?: string;
   keywordsColor?: string;
   defaultValue?: string;
+  hintPaths?: HintPathType[];
+  extensions?: Extension[];
 }
 
 const Editor: ForwardRefRenderFunction<ScriptEditorRef, PropsType> = ({
@@ -39,6 +42,8 @@ const Editor: ForwardRefRenderFunction<ScriptEditorRef, PropsType> = ({
   keywordsColor,
   keywordsClassName,
   defaultValue,
+  hintPaths,
+  extensions: extensionsProps,
 },
   ref,
 ) => {
@@ -124,17 +129,23 @@ const Editor: ForwardRefRenderFunction<ScriptEditorRef, PropsType> = ({
     },
     [insertText, clearText, setText]
   );
+
+  console.log(extensionsProps);
   const extensionsMemo = useMemo(
     () =>
-      extensions({
-        completions,
-        keywords,
-        placeholderThemes,
-        mode,
-        functions,
-        keywordsColor,
-        keywordsClassName,
-      }),
+      [
+        ...extensions({
+          completions,
+          keywords,
+          placeholderThemes,
+          mode,
+          functions,
+          keywordsColor,
+          keywordsClassName,
+          hintPaths,
+        }),
+        ...(extensionsProps || [])
+      ],
     [
       completions,
       keywords,
@@ -143,6 +154,8 @@ const Editor: ForwardRefRenderFunction<ScriptEditorRef, PropsType> = ({
       functions,
       keywordsColor,
       keywordsClassName,
+      hintPaths,
+      extensionsProps,
     ]
   );
 

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "在线公式脚本编辑器",
   "main": "index.js",
+  "homepage": "https://dbfu.github.io/bp-script-editor",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "pnpm --filter '@byteplan/bp-script-editor' run build",
@@ -10,6 +11,7 @@
     "dev": "pnpm --filter '@byteplan/example' run dev"
   },
   "keywords": [
+    "codemirror6",
     "script",
     "editor"
   ],

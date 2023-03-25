@@ -1,7 +1,6 @@
 import { FC, useEffect } from 'react';
 import { Form, Modal, Input } from 'antd';
 
-
 interface PropType {
   formatFunctions: string;
   result: string;
@@ -20,12 +19,11 @@ const RunResult: FC<PropType> = ({
 
   useEffect(() => {
     if (open) {
+      form.resetFields();
       form.setFieldsValue({
         formatFunctions,
         result,
       })
-    } else {
-      form.resetFields();
     }
   }, [open]);
 
@@ -41,6 +39,7 @@ const RunResult: FC<PropType> = ({
         form={form}
         wrapperCol={{ span: 19 }}
         labelCol={{ span: 5 }}
+        name="result"
       >
         <Form.Item
           label="格式化后的函数"

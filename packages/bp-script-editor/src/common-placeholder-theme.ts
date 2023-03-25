@@ -1,6 +1,4 @@
-import { CommonPlaceholderThemesType } from './interface';
-
-export const CommonPlaceholderThemes: CommonPlaceholderThemesType = {
+export const CommonPlaceholderThemes = {
   magenta: {
     textColor: '#c41d7f',
     backgroudColor: '#fff0f6',
