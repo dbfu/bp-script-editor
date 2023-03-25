@@ -202,7 +202,7 @@ function App() {
               ref={editorRef}
               height="calc(100vh - 48px)"
               mode={mode}
-              defaultValue="hello world"
+              defaultValue="// 输入user测试代码提示功能"
               hintPaths={hintPaths}
               onValueChange={onValueChange}
             />
