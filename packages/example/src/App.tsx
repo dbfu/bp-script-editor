@@ -101,16 +101,22 @@ function App() {
 
   const test = () => {
 
-    const result = value.replace(/\[\[(.+?)\]\]/g, (_: string, $2: string) => {
+    if (!value) return;
+
+    let result = value.replace(/\[\[(.+?)\]\]/g, (_: string, $2: string) => {
       const [type, ...rest] = $2.split('.');
 
       if (type === 'f') {
         const [modelCode, fieldCode] = rest.map((t) => t.split(':')[1]);
-        return `data?.${modelCode}?.${fieldCode}`;
+        return `data?.['${modelCode}']?.['${fieldCode}']`;
       }
 
       return '';
     });
+
+    if (!result) return;
+    result = result.split('\n').pop() || '';
+    if (!result) return;
 
     console.log(`function: return ${result}`);
 

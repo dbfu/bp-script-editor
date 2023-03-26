@@ -44,8 +44,16 @@ import Editor from '@byteplan/bp-script-editor';
 | defaultValue | 默认值 | string
 | functions | 函数 | [CompletionsType[]](#completionstype)
 | mode | 模式 | code ｜ name
-| hintPaths | 代码提示 | [≈[]](#hintpathtype)
+| hintPaths | 代码提示 | [[HintPathType]](#hintpathtype)
 | onValueChange | 值改变的回调 | (value: string) => void
+
+4. 方法
+
+| 名称    | 说明  | 参数
+|  ----  | ----  | ----
+| insertText | 插入文本  | (text, isTemplate) =>  void，有类似${}这样的占位符，需要把isTemplate设置为true
+| clearText | 清空文本  | () =>  void
+| setText | 设置文本  | (text) =>  void，会把编辑器的内容使用text替换掉
 
 # CompletionsType
 

@@ -114,7 +114,7 @@ const ModelList: FC<PropType> = ({
         )
       }
     }]
-  }, [])
+  }, [selected])
 
   return (
     <Drawer
